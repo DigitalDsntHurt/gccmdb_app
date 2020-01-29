@@ -2,8 +2,9 @@ Rails.application.routes.draw do
   
 
 
-
+  get 'measures/index_master' => 'measures#index_master'
   get 'measures/index_pages' => 'measures#index_pages'
+  get 'measures/index_simple_pages' => 'measures#index_simple_pages'
   resources :measures
   
 

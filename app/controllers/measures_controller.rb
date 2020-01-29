@@ -4,11 +4,28 @@ class MeasuresController < ApplicationController
   # GET /measures
   # GET /measures.json
   def index
-    @measures = Measure.all
+    #@measures = Measure.page(params[:page]).per(50)
+
+    #@q = Measure.ransack(params[:q])
+    #@measures_q = @q.result(distinct: true)
+
+    @search = Measure.search(params[:q])
+    @measures = @search.result
   end
 
   def index_pages
     @measures = Measure.page(params[:page]).per(500)
+  end
+
+  def index_simple_pages
+    @measures = Measure.page(params[:page]).per(50)
+
+    @q = Measure.ransack(params[:q])
+    @measures_q = @q.result(distinct: true)
+  end
+
+  def index_master
+    @measures = Measure.all
   end
 
   # GET /measures/1

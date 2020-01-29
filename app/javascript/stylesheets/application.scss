@@ -8,3 +8,29 @@
 table tr td { 
 	font-size: 10px; 
 }
+
+table.measures-index{
+	/* margin-top: -80px;
+
+	thead tr:nth-child(1) th{
+	    position: sticky;
+	    top: 88px;
+	    z-index: 1;
+  	} */
+	th{
+		padding:0px 12px 0px 12px;
+		background: white;
+
+	}
+	th.center {
+		text-align: center;
+	}
+
+	td {
+		padding-bottom: 12px;
+	}
+
+	td.center {
+		text-align: center;
+	}
+}

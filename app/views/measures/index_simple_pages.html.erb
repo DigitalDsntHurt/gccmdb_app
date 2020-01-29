@@ -1,22 +1,9 @@
 <p id="notice"><%= notice %></p>
 
-<h1 align="center">Measures</h1>
-<div align="center">
-  <%= search_form_for @search do |f| %>
-    <%= f.search_field :name_or_description_cont %>
-    
-    <%= f.submit "search", class: "btn btn-primary btn-sm" %>&nbsp;<%= link_to "clear results", measures_path, class: "btn btn-primary btn-sm" %>
-    <br>
-    <%= @measures.count %> results
-  <% end %>
-</div>
-
-<% if false %> 
+<h1>Measures</h1>
 <h4>
- <%= paginate @measures %> 
+  <%= paginate @measures %>
 </h4>
-
-
 <nav aria-label="...">
   <ul class="pagination">
     <li class="page-item disabled">
@@ -33,29 +20,40 @@
   </ul>
 </nav>
 
+<%= search_form_for @q do |f| %>
+  <%= f.label :measure_name_cont %>
+  <%= f.search_field :name_cont %>
 
+  
+<% if false %>
+<% end %>
+  <br>
+  <%= f.label :name_or_description_or_measure_targets_cont %>
+  <%= f.search_field :name_or_description_or_measure_targets_cont %>
+  
+  <%= f.submit %>
 <% end %>
 
-  <table class="measures-index">
+  <table>
     <thead>
       <tr>
         <th>Name</th>
-        <th class="center"><%= sort_link(@search, :country_id) %></th>
-        <th class="center">Targets</th>
+        <th>Country</th>
+        <th>Targets</th>
         <th>Description</th>
-        <th class="center"><%= sort_link(@search, :measure_implementation_period_start_year, "Implementation start year") %></th>
-        <th class="center"><%= sort_link(@search, :data_source_id) %></th>
+        <th>Implementation start year</th>
+        <th>Data source</th>
       </tr>
     </thead>
     <tbody>
       <% @measures.each do |measure| %>
         <tr>
-          <td width="10%"><%= measure.name %></td>
-          <td class="center">
+          <td><%= measure.name %></td>
+          <td>
             <% @country = Country.where(id: measure.country_id)[0] %>
             <%= link_to @country.country, @country %>
           </td>  
-          <td class="center">
+          <td>
             <% measure.measure_targets.each_with_index{|target_id,i| %>
               <% @target = MeasureTarget.where(id: target_id)[0] %>
               <% if target_id == measure.measure_targets[-1] %>
@@ -65,11 +63,11 @@
               <% end %>
             <% } %>
           </td>
-          <td width="70%"><%= measure.description %></td>
-          <td class="center">
+          <td><%= measure.description %></td>
+          <td align="center">
             <%= measure.measure_implementation_period_start_year %>
           </td>
-          <td class="center">
+          <td>
             <% @source = DataSource.where(id: measure.data_source_id)[0] %>
             <%= link_to @source.source, @source %>
           </td>
