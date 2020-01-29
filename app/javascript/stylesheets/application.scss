@@ -5,9 +5,33 @@
 	padding: 22px;
 }
 
-table tr td { 
-	font-size: 10px; 
+
+
+/* TABLE STYLES */
+.table-container{
+	max-width: 60%;
+	margin: auto;
+	margin-top: 2%;
+	margin-bottom: 2%;
+	padding: 22px;
+	border: solid 1px black;
 }
+
+table {
+	margin: auto;
+
+	th {
+		padding: 0px 12px 0px 12px;
+	}
+	td.center{
+			text-align: center;
+		}
+}
+table tr td { 
+	font-size: 10px;
+}
+
+
 
 table.measures-index{
 	/* margin-top: -80px;
@@ -28,9 +52,46 @@ table.measures-index{
 
 	td {
 		padding-bottom: 12px;
+		vertical-align: top;
 	}
 
 	td.center {
 		text-align: center;
+	}
+}
+
+
+
+
+
+
+
+/* PAGINATION STYLES */
+
+.pagination{
+	margin: auto;
+	margin-top:12px;
+	margin-bottom:12px;
+
+	.previous_page{
+		@extend .btn;
+		@extend .btn-primary;
+		@extend .btn-sm;
+	}
+
+	.next_page{
+		@extend .btn;
+		@extend .btn-primary;
+		@extend .btn-sm;
+	}
+
+	a {
+		@extend .page-link;
+	}
+
+	em.current {
+		@extend .page-link;
+		background-color: $blue;
+		color: white;
 	}
 }

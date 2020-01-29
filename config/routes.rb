@@ -19,7 +19,7 @@ Rails.application.routes.draw do
   
 
 
-
+  get 'countries/index_master' => 'countries#index_master'
   resources :countries
 
   
