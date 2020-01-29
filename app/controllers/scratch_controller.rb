@@ -7,4 +7,8 @@ class ScratchController < ApplicationController
 
   def one
   end
+
+  def summaries
+    
+  end
 end
