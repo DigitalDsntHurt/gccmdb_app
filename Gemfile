@@ -29,7 +29,8 @@ gem 'jbuilder', '~> 2.7'
 gem 'bootsnap', '>= 1.4.2', require: false
 
 # pagination
-gem 'kaminari', '~> 0.17.0'
+#gem 'kaminari', '~> 0.17.0'
+gem 'will_paginate', '>= 3.1.0'
 # search and filter
 gem 'ransack'
 

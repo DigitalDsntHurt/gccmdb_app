@@ -9,19 +9,22 @@ class MeasuresController < ApplicationController
     #@q = Measure.ransack(params[:q])
     #@measures_q = @q.result(distinct: true)
 
+    # search implemented with ransack
     @search = Measure.search(params[:q])
-    @measures = @search.result.page(params[:page]).per(250)
+    @measures = @search.result.paginate(page: params[:page], per_page: 100)
     if params[:q] != nil
       @search_term = params[:q].values[0].to_s
     end
+
+
   end
 
   def index_pages
-    @measures = Measure.page(params[:page]).per(500)
+    @measures = Measure
   end
 
   def index_simple_pages
-    @measures = Measure.page(params[:page]).per(50)
+    @measures = Measure
 
     @q = Measure.ransack(params[:q])
     @measures_q = @q.result(distinct: true)
