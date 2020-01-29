@@ -12,11 +12,12 @@ Rails.application.routes.draw do
 
 
 
+  get 'measure_targets/index_master' => 'measure_targets#index_master'
   resources :measure_targets
   
 
 
-
+  get 'data_sources/index_master' => 'data_sources#index_master'
   resources :data_sources
   
 

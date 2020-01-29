@@ -4,19 +4,11 @@ class MeasuresController < ApplicationController
   # GET /measures
   # GET /measures.json
   def index
-    #@measures = Measure.page(params[:page]).per(50)
-
-    #@q = Measure.ransack(params[:q])
-    #@measures_q = @q.result(distinct: true)
-
-    # search implemented with ransack
     @search = Measure.search(params[:q])
     @measures = @search.result.paginate(page: params[:page], per_page: 100)
     if params[:q] != nil
       @search_term = params[:q].values[0].to_s
     end
-
-
   end
 
   def index_pages

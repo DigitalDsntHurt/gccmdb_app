@@ -3,19 +3,29 @@
 <h1 align="center">Measures</h1>
 <div align="center">
   <%= search_form_for @search do |f| %>
-    <%= f.search_field :name_or_description_cont %>
-    <br>
-    <%= f.submit "search", class: "btn btn-primary btn-sm", style:"margin: 6px;" %> <%= link_to "clear results", measures_path, class: "btn btn-primary btn-sm" %>
-    <br>
-    <% if @search_term == nil%>
-      <% if false %> <%= Measure.all.count %> known measures <% end %>
-    <% else %>
-      <% if @measures.count > 1 %>
-        <%= @measures.count %> results
-      <% else %>
-        <%= @measures.count %> result
-      <% end %>  
-    <% end %>
+    <table>
+      <tr>
+        <td>
+          <%= f.search_field :name_or_description_cont, placeholder: "search" %>
+        </td>
+        <td>
+          <%= f.submit "search", class: "btn btn-primary btn-md" %> 
+          <% unless @measures.count == Measure.all.count %>
+            <%= link_to "clear results", measures_path, class: "btn btn-primary btn-md" %>      
+          <% end %>  
+        </td>
+        <td>
+          <% if @search_term == nil%>
+          <% else %>
+            <% if @measures.count == 1 %>
+              <%= link_to "#{@measures.count} result", "", class: "btn btn-outline-primary btn-md disabled" %>
+            <% else %>
+              <%= link_to "#{@measures.count} results", "", class: "btn btn-outline-primary btn-md disabled" %>
+            <% end %>  
+          <% end %>
+        </td>
+      </tr>
+    </table>
   <% end %>
 </div>
 
