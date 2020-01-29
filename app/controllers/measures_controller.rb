@@ -10,7 +10,10 @@ class MeasuresController < ApplicationController
     #@measures_q = @q.result(distinct: true)
 
     @search = Measure.search(params[:q])
-    @measures = @search.result
+    @measures = @search.result.page(params[:page]).per(250)
+    if params[:q] != nil
+      @search_term = params[:q].values[0].to_s
+    end
   end
 
   def index_pages

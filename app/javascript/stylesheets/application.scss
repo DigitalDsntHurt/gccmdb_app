@@ -5,9 +5,33 @@
 	padding: 22px;
 }
 
-table tr td { 
-	font-size: 10px; 
+
+
+/* TABLE STYLES */
+.table-container{
+	max-width: 60%;
+	margin: auto;
+	margin-top: 2%;
+	margin-bottom: 2%;
+	padding: 22px;
+	border: solid 1px black;
 }
+
+table {
+	margin: auto;
+	
+	th {
+		padding: 0px 12px 0px 12px;
+	}
+	td.center{
+			text-align: center;
+		}
+}
+table tr td { 
+	font-size: 10px;
+}
+
+
 
 table.measures-index{
 	/* margin-top: -80px;

@@ -4,6 +4,11 @@ class CountriesController < ApplicationController
   # GET /countries
   # GET /countries.json
   def index
+    @search = Country.search(params[:q])
+    @countries = @search.result
+  end
+
+  def index_master
     @countries = Country.all
   end
 

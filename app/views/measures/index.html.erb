@@ -7,7 +7,11 @@
     
     <%= f.submit "search", class: "btn btn-primary btn-sm" %>&nbsp;<%= link_to "clear results", measures_path, class: "btn btn-primary btn-sm" %>
     <br>
-    <%= @measures.count %> results
+    <% if @search_term == nil%>
+      <%= Measure.all.count %> known measures
+    <% else %>
+      <%= @measures.count %> results
+    <% end %>
   <% end %>
 </div>
 
