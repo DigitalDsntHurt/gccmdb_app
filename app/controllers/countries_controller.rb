@@ -15,6 +15,8 @@ class CountriesController < ApplicationController
   # GET /countries/1
   # GET /countries/1.json
   def show
+    @search = Measure.where(country_id: @country.id).search(params[:q])
+    @country_measures = @search.result.paginate(page: params[:page], per_page: 150)
   end
 
   # GET /countries/new

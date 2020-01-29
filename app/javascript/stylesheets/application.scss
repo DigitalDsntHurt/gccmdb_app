@@ -5,6 +5,29 @@
 	padding: 22px;
 }
 
+.index-container{
+	h1 {
+		text-align: center;
+		margin-bottom: 22px;
+	}
+
+	table{
+		th{
+			padding: 6px;
+		}
+	}
+}
+
+.show-container{
+	h1 {
+		text-align: center;
+		margin-bottom: 22px;
+	}
+	h2 {
+		text-align: center;
+		margin-bottom: 22px;	
+	}
+}
 
 
 /* TABLE STYLES */
@@ -15,6 +38,17 @@
 	margin-bottom: 2%;
 	padding: 22px;
 	border: solid 1px black;
+}
+
+
+table.border-table{
+	th{
+		border: solid 1px black;
+	}
+	td{
+		border: solid 1px black;
+		padding: 6px;
+	}
 }
 
 table {
@@ -61,8 +95,11 @@ table.measures-index{
 }
 
 
+/* LINK STYLES */
 
-
+a.no-hover:hover {
+	text-decoration: none;
+}
 
 
 
@@ -95,3 +132,16 @@ table.measures-index{
 		color: white;
 	}
 }
+
+
+
+
+/* SEARCHBAR STYLES */
+input[type="search"] {
+	@extend .form-control;
+	@extend .mr-sm-2;
+	
+}
+
+
+

@@ -1,28 +1,29 @@
+<div class="index-container">
+  <p id="notice"><%= notice %></p>
 
-<p id="notice"><%= notice %></p>
+  <h1>Countries</h1>
 
-<h1 align="center">Countries</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th><%= sort_link(@search, :country) %></th>
-      <th>Measures Count</th>
-      <th>Measures Implementation Start Year Range</th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @countries.each do |country| %>
+  <table class="border-table">
+    <thead>
       <tr>
-        <td><%= country.country %></td>
-        <td class="center"><%= country.measures.count %></td>
-        <td class="center">
-          <% unless country.measures.count == 0 %>
-            Between <%= country.measures.pluck(:measure_implementation_period_start_year).reject{|val| val == nil }.min %> and <%= country.measures.pluck(:measure_implementation_period_start_year).reject{|val| val == nil }.max %>.
-          <% end %>
-        </td>
+        <th><%= sort_link(@search, :country) %></th>
+        <th>Measures Count</th>
+        <th>Measures Implementation Start Year Range</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+
+    <tbody>
+      <% @countries.sort_by{|country| country.measures.count }.reverse.each do |country| %>
+        <tr>
+          <td><%= link_to country.country, country %></td>
+          <td class="center"><%= country.measures.count %></td>
+          <td class="center">
+            <% unless country.measures.count == 0 %>
+              Between <%= country.measures.pluck(:measure_implementation_period_start_year).reject{|val| val == nil }.min %> and <%= country.measures.pluck(:measure_implementation_period_start_year).reject{|val| val == nil }.max %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>  
