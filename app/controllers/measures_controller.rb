@@ -7,6 +7,10 @@ class MeasuresController < ApplicationController
     @measures = Measure.all
   end
 
+  def index_pages
+    @measures = Measure.page(params[:page]).per(500)
+  end
+
   # GET /measures/1
   # GET /measures/1.json
   def show
