@@ -46,7 +46,6 @@
 						<% group_measure_group.reject{|a| a == nil }.each{|measure_group| %>
 							<td style="text-align: center; vertical-align: top;">
 								<% unless measure_group == nil %>
-									<% @size = FontScale.size(measure_group[1]) %>
 									<% if measure_group[0] == 2005 %>
 										<span style="text-decoration: underline;"><%= measure_group[0] %>*</span><br>
 										<span style="vertical-align: center;"><%= measure_group[1].count %></span><br>
@@ -72,7 +71,6 @@
 					<tr>
 						<% group_measure_group.reject{|a| a == nil }.each{|measure_group| %>
 							<% if measure_group[0] == 2005 %>
-								<% @size = FontScale.size(measure_group[1]) %>
 								<td style="text-align: center; vertical-align: top;">
 									<span style="text-decoration: underline;"><%= measure_group[0] %>*</span><br>
 									<span style="vertical-align: center;"><%= measure_group[1].count %></span><br>
@@ -100,7 +98,6 @@
 					<tr>
 						<% group_measure_group.each{|measure_group| %>
 							<td style="text-align: center; vertical-align: top;">
-								<% @size = FontScale.size(measure_group[1]) %>
 								<% unless measure_group == nil %>
 									<% if measure_group[0] == 2005 %>
 										<span style="text-decoration: underline;"><%= measure_group[0] %>*</span><br>
