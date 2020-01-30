@@ -136,7 +136,19 @@ require 'csv'
 
 
 
+Measure.all.group_by{|measure| measure.measure_written_year }.reject{|hsh| hsh == nil }.to_a.sort_by{|hsh| hsh[0] }.in_groups_of(10).each{ |group_measure_group|
+  group_measure_group.reject{|a| a == nil }.each{|measure_group| 
+    if measure_group.join().length == 0
+    puts "==="
+    p measure_group[0]
+    p measure_group[1]
+    p measure_group.count
+    p measure_group.class
+    p FontScale.scale(measure_group[1])
+    end
 
+  }
+}
 
 
 
