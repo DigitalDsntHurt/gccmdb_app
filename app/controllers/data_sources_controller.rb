@@ -15,9 +15,8 @@ class DataSourcesController < ApplicationController
   # GET /data_sources/1
   # GET /data_sources/1.json
   def show
-    #@source_measures = Measure.where(data_source_id: @data_source.id)
     @search = Measure.where(data_source_id: @data_source.id).search(params[:q])
-    @source_measures = @search.result.paginate(page: params[:page], per_page: 1500)
+    @source_measures = @search.result.paginate(page: params[:page], per_page: 100)
   end
 
   # GET /data_sources/new

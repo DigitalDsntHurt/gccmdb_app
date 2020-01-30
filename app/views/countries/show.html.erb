@@ -12,6 +12,10 @@
 		<%= @country_measures.all.count %> measures associated with this country
 	</h2>
 
+	<div class="pagination">
+    	<%= will_paginate @country_measures %>
+	</div>
+
 	<table class="measures-index">
 	  <thead>
 	    <tr>
