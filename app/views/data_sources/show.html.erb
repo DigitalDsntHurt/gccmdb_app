@@ -12,6 +12,10 @@
 		<%= @source_measures.all.count %> measures associated with this source
 	</h2>
 
+	<div class="pagination">
+    	<%= will_paginate @source_measures %>
+	</div>
+
 
 	<table class="measures-index">
 	  <thead>

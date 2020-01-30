@@ -17,7 +17,7 @@ class MeasureTargetsController < ApplicationController
   # GET /measure_targets/1.json
   def show
     @search = Measure.where('measure_targets && ARRAY[?]::varchar[]', @measure_target.id).search(params[:q])
-    @target_measures = @search.result.paginate(page: params[:page], per_page: 1500)
+    @target_measures = @search.result.paginate(page: params[:page], per_page: 100)
   end
 
   # GET /measure_targets/new
