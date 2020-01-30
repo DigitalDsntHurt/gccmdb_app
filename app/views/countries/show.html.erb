@@ -25,7 +25,7 @@
 	  <tbody>
 	    <% @country_measures.each do |measure| %>
 	      <tr>
-	        <td width="10%"><%= measure.name %></td>
+	        <td width="10%"><%= link_to measure.name, measure %></td>
 	        <td class="center">
 	          <% @country = Country.where(id: measure.country_id)[0] %>
 	          <%= link_to @country.country, @country %>
