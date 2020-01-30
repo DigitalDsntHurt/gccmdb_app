@@ -1,10 +1,222 @@
-<h1>summary statistics</h1>
-<h2>Total Number of Records</h2>
-<h2>Records By Country</h2>
-<h2>total year range -- with markers for kyoto protocols and other dates</h2>
-<h2>year range by country </h2>
-<h2>numbers by measure target (with and without groupings target groupings)</h2>
-<h2>status that has ongoing, active, etc</h2>
-<h2>some other stuff with measure status, i have to go back through my notes</h2>
-<h2>all of the above for OECD and  EU slices</h2>
-<h2>number of agencies listed on average per eu</h2>
+<h1 style="padding-top: 12px" align="center">summary statistics</h1>
+
+
+<table align="left" style="margin-bottom: 222px;">
+	<tr>
+		<td>
+			<h2 style="margin-top: 12px;">Total Number of Records</h2>
+			<table class="border-table" align="left">
+				<% @models.sort.reverse.in_groups_of(2).each{|model_group| %>
+					<tr>
+						<% model_group.each{|model| %>
+							<td style="padding:6px; vertical-align: top;">
+								<%= link_to model, "/#{model.underscore.humanize.downcase.gsub(" ","_")}" %>: <%= model.singularize.constantize.all.count %> records
+							</td>	
+						<% } %>
+						
+					</tr>
+				<% } %>
+			</table>
+		</td>
+	</tr>	
+	<tr>
+		<td>
+			<h2 style="margin-top: 12px;">Measures By Country</h2>
+			<table class="border-table" align="left">
+				<% Country.all.sort_by{|country| Measure.where(country_id: country.id).count }.reverse.in_groups_of(10).each{ |country_group| %>
+					<tr>
+						<% country_group.each{|country| %>
+							<td>
+								<% unless country == nil %>
+									<%= link_to country.country, country %>: <%= Measure.where(country_id: country.id).count %></td>
+								<% end %>
+						<% } %>
+					</tr>	
+				<% } %>
+				
+			</table>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<h2 style="margin-top: 12px;">Measures Written Per Year</h2>
+			<table class="border-table" align="left">
+				<% Measure.all.group_by{|measure| measure.measure_written_year }.reject{|hsh| hsh == nil }.to_a.sort_by{|hsh| hsh[0] }.in_groups_of(10).each{|group_measure_group| %>
+					<tr>
+						<% group_measure_group.reject{|a| a == nil }.each{|measure_group| %>
+							<% if measure_group[0] == 2005 %>
+								<td style="text-align: center; vertical-align: top;">
+									<span style="text-decoration: underline;"><%= measure_group[0] %>*</span><br>
+									<span style="font-size: <%= measure_group[1].count * 0.75 %>px; vertical-align: center;"><%= measure_group[1].count %></span><br>
+									<br> <strong>* <u>Kyoto Protocol</u></strong>
+								</td>
+							<% else %>
+								<td style="text-align: center; vertical-align: top;">
+									<span style="text-decoration: underline;"><%= measure_group[0] %></span><br>
+									<span style="font-size: <%= measure_group[1].count * 0.75 %>px; vertical-align: center;"><%= measure_group[1].count %></span>
+								</td>
+							<% end %>
+
+							
+						<% } %>
+					</tr>
+				<% } %>
+			</table>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<h2 style="margin-top: 12px;">Measure Implementation Start Year Frequency</h2>
+			<table class="border-table" align="left">
+				<% Measure.all.group_by{|measure| measure.measure_implementation_period_start_year }.reject{|hsh| hsh == nil }.to_a.sort_by{|hsh| hsh[0] }.in_groups_of(8).each{|group_measure_group| %>
+					<tr>
+						<% group_measure_group.reject{|a| a == nil }.each{|measure_group| %>
+							<% if measure_group[0] == 2005 %>
+								<td style="text-align: center; vertical-align: top;">
+									<span style="text-decoration: underline;"><%= measure_group[0] %>*</span><br>
+									<span style="font-size: <%= measure_group[1].count * 0.65 %>px; vertical-align: center;"><%= measure_group[1].count %></span><br>
+									<br> <strong>* <u>Kyoto Protocol</u></strong>
+								</td>
+							<% else %>
+								<td style="text-align: center; vertical-align: top;">
+									<span style="text-decoration: underline;"><%= measure_group[0] %></span><br>
+									<span style="font-size: <%= measure_group[1].count * 0.65 %>px; vertical-align: center;"><%= measure_group[1].count %></span>
+								</td>
+							<% end %>
+
+							
+						<% } %>
+					</tr>
+				<% } %>
+			</table>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<h2 style="margin-top: 12px;">Measure Implementation End Year Frequency</h2>
+			<table class="border-table" align="left">
+				<% Measure.all.group_by{|measure| measure.measure_implementation_period_end_year }.reject{|hsh| hsh == nil }.to_a.sort_by{|hsh| hsh[0] }.in_groups_of(8).each{|group_measure_group| %>
+					<tr>
+						<% group_measure_group.each{|measure_group| %>
+							<td style="text-align: center; vertical-align: top;">
+								<% unless measure_group == nil %>
+									<% if measure_group[0] == 2005 %>
+										<span style="text-decoration: underline;"><%= measure_group[0] %>*</span><br>
+										<span style="font-size: <%= measure_group[1].count %>px; vertical-align: center;"><%= measure_group[1].count %></span><br>
+										<br> <strong>* <u>Kyoto Protocol</u></strong>
+									<% else %>
+										<span style="text-decoration: underline;"><%= measure_group[0] %></span><br>
+										<span style="font-size: <%= measure_group[1].count %>px; vertical-align: center;"><%= measure_group[1].count %></span>
+									<% end %>
+								<% end %>
+							</td>
+						<% } %>
+					</tr>
+				<% } %>
+			</table>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<h2 style="margin-top: 12px;">Measure Written Year Range By Country</h2>
+			<table class="border-table" align="left">
+				<% Country.all.to_a.in_groups_of(15).each{|country_group| %>
+					<tr>
+						<% country_group.each{|country| %>
+							<td style="text-align: center;">
+								<% unless country == nil %>
+									<span style="text-decoration: underline;"><%= country.country %></span><br>
+									<%= Measure.where(country_id: country.id).pluck(:measure_written_year).reject{|year| year == nil }.sort.first %> - <%= Measure.where(country_id: country.id).pluck(:measure_written_year).reject{|year| year == nil }.sort.last %>
+								<% end %>
+							</td>
+						<% } %>
+					</tr>
+				<% } %>	
+			</table>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<h2 style="margin-top: 12px;">Measure Implementation Start Year Range By Country</h2>
+			<table class="border-table" align="left">
+				<% Country.all.to_a.in_groups_of(15).each{|country_group| %>
+					<tr>
+						<% country_group.each{|country| %>
+							<td style="text-align: center;">
+								<% unless country == nil %>
+									<span style="text-decoration: underline;"><%= country.country %></span><br>
+									<%= Measure.where(country_id: country.id).pluck(:measure_implementation_period_start_year).reject{|year| year == nil }.sort.first %> - <%= Measure.where(country_id: country.id).pluck(:measure_implementation_period_start_year).reject{|year| year == nil }.sort.last %>
+								<% end %>
+							</td>
+						<% } %>
+					</tr>
+				<% } %>	
+			</table>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<h2 style="margin-top: 12px;">Measure Implementation End Year Range By Country</h2>
+			<table class="border-table" align="left">
+				<% Country.all.to_a.in_groups_of(15).each{|country_group| %>
+					<tr>
+						<% country_group.each{|country| %>
+							<td style="text-align: center;">
+								<% unless country == nil %>
+									<span style="text-decoration: underline;"><%= country.country %></span><br>
+									<%= Measure.where(country_id: country.id).pluck(:measure_implementation_period_end_year).reject{|year| year == nil }.sort.first %> - <%= Measure.where(country_id: country.id).pluck(:measure_implementation_period_end_year).reject{|year| year == nil }.sort.last %>
+								<% end %>
+							</td>
+						<% } %>
+					</tr>
+				<% } %>	
+			</table>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<h2 style="margin-top: 12px;">Measure Status Frequency</h2>
+			<table class="border-table" align="left">
+				<% Measure.all.group_by{|measure| measure.measure_status }.sort_by{|status_group| status_group[1].count }.reverse.in_groups_of(11).each{|group_status_group| %>
+					<tr>
+						<% group_status_group.each{|status_group| %>
+							<td>
+								<% unless status_group == nil %>
+									<%=	status_group[0] %><br>
+									<%=	status_group[1].count %>
+								<% end %>
+							</td>
+						<% } %>	
+					</tr>
+				<% } %> 
+			</table>
+		</td>
+	</tr>	
+
+<% if false %>	
+
+	<tr>
+		<td>
+			<h2 style="margin-top: 12px;">total year range -- with markers for kyoto protocols and other dates</h2>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<h2 style="margin-top: 12px;">numbers by measure target (with and without target groupings)</h2>
+		</td>
+	</tr>	
+	<tr>
+		<td>
+			<h2 style="margin-top: 12px;">all of the above for OECD and EU slices</h2>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<h2 style="margin-top: 12px;">number of agencies listed on average per eu</h2>
+		</td>
+<% end %>		
+
+	</tr>
+</table>
+
+

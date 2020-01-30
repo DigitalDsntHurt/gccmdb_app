@@ -137,10 +137,13 @@ a.no-hover:hover {
 
 
 /* SEARCHBAR STYLES */
-input[type="search"] {
-	@extend .form-control;
-	@extend .mr-sm-2;
-	
+
+.nav-centered{
+	margin: auto;
+}
+
+.nav-link{
+	@extend h5;
 }
 
 
