@@ -14,6 +14,14 @@ class Measure < ApplicationRecord
 
 
   ##
+  ## ## MEASURES PER YEAR
+  ##
+
+  def self.measures_per_year_count
+    Measure.all.group_by{|measure| measure.measure_written_year }.reject{|array| array == nil }.map{|year,measures| [year,measures.count] }.sort_by{|array| array[0] }
+  end
+
+  ##
   ## ## MEASURE STATUSES
   ##
 

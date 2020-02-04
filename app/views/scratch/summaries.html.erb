@@ -39,30 +39,38 @@
 	</tr>
 	<tr>
 		<td>
-			<h2 style="margin-top: 12px;">Measures Written Per Year</h2>
-			<table class="border-table" align="left">
-				<% Measure.all.group_by{|measure| measure.measure_written_year }.reject{|hsh| hsh == nil }.to_a.sort_by{|hsh| hsh[0] }.in_groups_of(10).each{|group_measure_group| %>
-					<tr>
-						<% group_measure_group.reject{|a| a == nil }.each{|measure_group| %>
-							<td style="text-align: center; vertical-align: top;">
-								<% unless measure_group == nil %>
-									<% if measure_group[0] == 2005 %>
-										<span style="text-decoration: underline;"><%= measure_group[0] %>*</span><br>
-										<span style="font-size: <%= FontScale.size(measure_group[1]) %>px; vertical-align: center;"><%= measure_group[1].count %></span><br>
-										<br> <strong>* <u>Kyoto Protocol</u></strong>
-									<% else %>
-										<span style="text-decoration: underline;"><%= measure_group[0] %></span><br>
-										<span style="font-size: <%= FontScale.size(measure_group[1]) %>px;"><%= measure_group[1].count %></span>
-									
-									<% end %>
-								<% end %>	
-							</td>	
-						<% } %>
-					</tr>
-				<% } %>
+			<table align="left">
+				<tr>
+					<td style="vertical-align: top; padding-right:22px;">
+						<h2 style="margin-top: 12px;">Measures Written Per Year</h2>
+						<table class="border-table" align="left">
+							<% Measure.measures_per_year_count.in_groups_of(10).each{|year_groups| %>
+								<tr>
+									<% year_groups.each{|year_array| %>
+										<td style="text-align: center; vertical-align: top;">
+											<% unless year_array == nil %>
+												<% if year_array[0] == 2005 %>
+													<span style="text-decoration: underline;"><%= year_array[0] %></span>
+													<br><%= year_array[1] %>
+													<br><strong>* <u>Kyoto Protocol</u></strong>
+												<% else	%>
+													<span style="text-decoration: underline;"><%= year_array[0] %></span>
+													<br><%= year_array[1] %>
+												<% end %>
+											<% end %>
+										</td>	
+									<% } %>
+								</tr>
+							<% } %>
+						</table>						
+					</td>
+					<td style="vertical-align: top;">
+						<h2 style="margin-top: 12px;">Measures Written Per Year Chart</h2>
+					</td>
+				</tr>
 			</table>
 		</td>
-	</tr>
+	</tr>	
 	<tr>
 		<td>
 			<h2 style="margin-top: 12px;">Measure Implementation Start Year Frequency</h2>
