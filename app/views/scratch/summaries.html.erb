@@ -39,38 +39,36 @@
 	</tr>
 	<tr>
 		<td>
-			<table align="left">
-				<tr>
-					<td style="vertical-align: top; padding-right:22px;">
-						<h2 style="margin-top: 12px;">Measures Written Per Year</h2>
-						<table class="border-table" align="left">
-							<% Measure.measures_per_year_count.in_groups_of(10).each{|year_groups| %>
-								<tr>
-									<% year_groups.each{|year_array| %>
-										<td style="text-align: center; vertical-align: top;">
-											<% unless year_array == nil %>
-												<% if year_array[0] == 2005 %>
-													<span style="text-decoration: underline;"><%= year_array[0] %></span>
-													<br><%= year_array[1] %>
-													<br><strong>* <u>Kyoto Protocol</u></strong>
-												<% else	%>
-													<span style="text-decoration: underline;"><%= year_array[0] %></span>
-													<br><%= year_array[1] %>
-												<% end %>
-											<% end %>
-										</td>	
-									<% } %>
-								</tr>
-							<% } %>
-						</table>						
-					</td>
-					<td style="vertical-align: top;">
-						<h2 style="margin-top: 12px;">Measures Written Per Year Chart</h2>
-					</td>
-				</tr>
+			<h2 style="margin-top: 12px;">Measures Written Per Year</h2>
+			<table class="border-table" align="left">
+				<% Measure.measures_written_per_year_count.in_groups_of(10).each{|year_groups| %>
+					<tr>
+						<% year_groups.each{|year_array| %>
+							<td style="text-align: center; vertical-align: top;">
+								<% unless year_array == nil %>
+									<% if year_array[0] == 2005 %>
+										<span style="text-decoration: underline;"><%= year_array[0] %></span>
+										<br><%= year_array[1] %>
+										<br><strong>* <u>Kyoto Protocol</u></strong>
+									<% else	%>
+										<span style="text-decoration: underline;"><%= year_array[0] %></span>
+										<br><%= year_array[1] %>
+									<% end %>
+								<% end %>
+							</td>	
+						<% } %>
+					</tr>
+				<% } %>
 			</table>
 		</td>
-	</tr>	
+	</tr>
+	<tr>
+		<td>
+			<h2 style="margin-top: 12px;">Measures Written Per Year Chart</h2>
+			<div id='chart'></div>
+			<%= render_chart(@chart, 'chart') %>
+		</td>
+	</tr>
 	<tr>
 		<td>
 			<h2 style="margin-top: 12px;">Measure Implementation Start Year Frequency</h2>
