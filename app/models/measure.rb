@@ -14,6 +14,18 @@ class Measure < ApplicationRecord
 
 
   ##
+  ## ## MEASURES PER YEAR
+  ##
+
+  def self.measures_written_per_year_count
+    Measure.all.group_by{|measure| measure.measure_written_year }.reject{|array| array == nil }.map{|year,measures| [year,measures.count] }.sort_by{|array| array[0] }
+  end
+
+  # <%= column_chart Measure.measures_written_per_year_count %>
+  # <%= column_chart Measure.measures_written_per_year_count.map{|year,count| {year: year, measures_written: count}} %>
+  # <%= new Chartkick.column_chart [["Football", 10], ["Basketball", 5]] %>
+
+  ##
   ## ## MEASURE STATUSES
   ##
 
