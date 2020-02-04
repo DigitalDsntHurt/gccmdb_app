@@ -72,7 +72,29 @@
 	<hr>
 
 	<p>
-		<%= FontScale.size([1,2,3,4,5]) %>
+		
 	</p>
+
+
+
+	<% @font_sizes.each{|size| %>
+		<p style="font-size:<%= size %>px;">123 -- 456.789 -- 091 : random singing rabits (no hats)</p>
+	<% } %>
+
+
+	<% Measure.all.group_by{|measure| measure.measure_written_year }.reject{|hsh| hsh == nil }.to_a.sort_by{|hsh| hsh[0] }.in_groups_of(10).each{|group_measure_group| %>
+		<% group_measure_group.reject{|a| a == nil }.each{|measure_group| %>
+			<p>
+				<%= measure_group[1].count %>
+				<br><%= FontScale.size(measure_group[1].count) %>
+			</p>
+		<% } %>
+	<% } %>	
+
+
+	<%= FontScale.relative_font_scale([1,2,3,4,5,6,7,8,9,10,100]) %>
+
+
+
 
 </div>

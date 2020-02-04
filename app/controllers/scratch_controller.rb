@@ -1,5 +1,15 @@
 class ScratchController < ApplicationController
   def back
+
+    
+    
+    
+    @font_sizes = []
+    @start = 10.0
+    50.times do 
+      @font_sizes << @start
+      @start += 1
+    end
   end
   
   def homepage

@@ -48,11 +48,11 @@
 								<% unless measure_group == nil %>
 									<% if measure_group[0] == 2005 %>
 										<span style="text-decoration: underline;"><%= measure_group[0] %>*</span><br>
-										<span style="vertical-align: center;"><%= measure_group[1].count %></span><br>
+										<span style="font-size: <%= FontScale.size(measure_group[1]) %>px; vertical-align: center;"><%= measure_group[1].count %></span><br>
 										<br> <strong>* <u>Kyoto Protocol</u></strong>
 									<% else %>
 										<span style="text-decoration: underline;"><%= measure_group[0] %></span><br>
-										<span><%= measure_group[1].count %></span>
+										<span style="font-size: <%= FontScale.size(measure_group[1]) %>px;"><%= measure_group[1].count %></span>
 									
 									<% end %>
 								<% end %>	
