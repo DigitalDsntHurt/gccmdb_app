@@ -44,6 +44,70 @@ class Measure < ApplicationRecord
   end
 
 
+  def self.all_measure_statuses_by_country
+    @status_totals_per_country = []
+    Country.all.each{|country|
+      @hsh = Hash.new(0)
+      Measure.where(country_id: country.id).pluck(:measure_status).each{|status|
+        @hsh[status] += 1
+      }
+
+      @status_totals_per_country << [country.country, @hsh]
+
+    }
+
+    @status_totals_per_country
+  end
+
+  def self.active_measure_status_by_country
+    @active_statuses = ["Ongoing", "In Force", "Operational"]
+    @status_totals_per_country = []
+    Country.all.each{|country|
+      @count = 0
+      Measure.where(country_id: country.id).pluck(:measure_status).select{|status| @active_statuses.include?(status) }.each{|status|
+        @count += 1
+      }
+
+      @status_totals_per_country << [country.country, @count, Measure.where(country_id: country.id).count]
+
+    }
+
+    @status_totals_per_country
+  end
+
+  def self.completed_measure_status_by_country
+    @active_statuses = ["Completed", "Implemented", "Ended", "Concluded", "Adopted"]
+    @status_totals_per_country = []
+    Country.all.each{|country|
+      @count = 0
+      Measure.where(country_id: country.id).pluck(:measure_status).select{|status| @active_statuses.include?(status) }.each{|status|
+        @count += 1
+      }
+
+      @status_totals_per_country << [country.country, @count, Measure.where(country_id: country.id).count]
+
+    }
+
+    @status_totals_per_country
+  end
+
+  def self.canceled_measure_status_by_country
+    @active_statuses = ["Canceled"]
+    @status_totals_per_country = []
+    Country.all.each{|country|
+      @count = 0
+      Measure.where(country_id: country.id).pluck(:measure_status).select{|status| @active_statuses.include?(status) }.each{|status|
+        @count += 1
+      }
+
+      @status_totals_per_country << [country.country, @count, Measure.where(country_id: country.id).count]
+
+    }
+
+    @status_totals_per_country
+  end
+
+
   ##
   ## ## MEASURE JUSRISDICTIONS
   ##
