@@ -256,3 +256,110 @@
 </table>
 
 
+<div class="summary-blocks-wrapper">
+	
+	<div class="summary-block">
+		<h2>Measure status frequencies by country</h2>
+		
+			<table>
+				<% Measure.all_measure_statuses_by_country.in_groups_of(5).each{|country_group| %>
+					<tr>
+						<% country_group.each{|country,freqs| %>
+							<td>
+								<h6><%= country %></h6>
+								<% unless freqs == nil %>
+									<% freqs.sort_by{|k,v| v }.reverse.each{|k,v| %>
+										<% if v < 2 %>
+											<p><%= v %> <u><%= k %></u> measure</p>
+										<% else %>
+											<p><%= v %> <u><%= k %></u> measures</p>
+										<% end %>
+									<% } %>
+								<% end %>
+							</td>
+						<% } %>
+					</tr>
+				<% } %>
+			</table>
+
+	</div>
+
+	<div class="summary-block">
+		<h2>'Active' Measures by country</h2>
+		<h5>('Active' measures are defined by Measures for which the measure_status value is "Ongoing", "In-Force" or "Operational")</h5>
+		<table>
+			<% Measure.active_measure_status_by_country.sort_by{|country,count,total| count }.reverse.in_groups_of(5).each{|group| %>
+				<tr>
+					<% group.each{|country,count,total| %>
+						<td>
+							<% unless country == nil %>
+								<h6><%= country %></h6>
+								<p class="centered-paragraph">
+									<%= count %> active of
+									<% if total == 1 %>
+										<br><%= total %> total measure
+									<% else %>
+										<br><%= total %> total measures
+									<% end %>
+								</p>
+							<% end %>	
+						</td>
+					<% } %>
+				</tr>
+			<% } %>
+		</table>
+	</div>
+
+	<div class="summary-block">
+		<h2>'Completed' Measures by country</h2>
+		<h5>('Completed' measures are defined by Measures for which the measure_status value is "Completed", "Implemented", "Ended", "Concluded" or "Adopted")</h5>
+		<table>
+			<% Measure.completed_measure_status_by_country.sort_by{|country,count,total| count }.reverse.in_groups_of(5).each{|group| %>
+				<tr>
+					<% group.each{|country,count,total| %>
+						<td>
+							<% unless country == nil %>
+								<h6><%= country %></h6>
+								<p class="centered-paragraph">
+									<%= count %> completed of
+									<% if total == 1 %>
+										<br><%= total %> total measure
+									<% else %>
+										<br><%= total %> total measures
+									<% end %>
+								</p>
+							<% end %>	
+						</td>
+					<% } %>
+				</tr>
+			<% } %>
+		</table>
+	</div>
+
+	<div class="summary-block">
+		<h2>'Canceled' Measures by country</h2>
+		<h5>('Canceled' measures are defined by Measures for which the measure_status value is "Canceled")</h5>
+		<table>
+			<% Measure.canceled_measure_status_by_country.sort_by{|country,count,total| count }.reverse.in_groups_of(5).each{|group| %>
+				<tr>
+					<% group.each{|country,count,total| %>
+						<td>
+							<% unless country == nil %>
+								<h6><%= country %></h6>
+								<p class="centered-paragraph">
+									<%= count %> canceled of
+									<% if total == 1 %>
+										<br><%= total %> total measure
+									<% else %>
+										<br><%= total %> total measures
+									<% end %>
+								</p>
+							<% end %>	
+						</td>
+					<% } %>
+				</tr>
+			<% } %>
+		</table>
+	</div>
+
+</div>
