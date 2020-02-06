@@ -40,12 +40,13 @@ class Measure < ApplicationRecord
       hsh[status] += Measure.where(measure_status: status).count
     }
 
-    return hsh.sort_by{|k,v| v }.reverse
+    hsh.sort_by{|k,v| v }.reverse
   end
 
 
   def self.all_measure_statuses_by_country
     @status_totals_per_country = []
+
     Country.all.each{|country|
       @hsh = Hash.new(0)
       Measure.where(country_id: country.id).pluck(:measure_status).each{|status|
@@ -62,6 +63,7 @@ class Measure < ApplicationRecord
   def self.active_measure_status_by_country
     @active_statuses = ["Ongoing", "In Force", "Operational"]
     @status_totals_per_country = []
+
     Country.all.each{|country|
       @count = 0
       Measure.where(country_id: country.id).pluck(:measure_status).select{|status| @active_statuses.include?(status) }.each{|status|
@@ -78,6 +80,7 @@ class Measure < ApplicationRecord
   def self.completed_measure_status_by_country
     @active_statuses = ["Completed", "Implemented", "Ended", "Concluded", "Adopted"]
     @status_totals_per_country = []
+
     Country.all.each{|country|
       @count = 0
       Measure.where(country_id: country.id).pluck(:measure_status).select{|status| @active_statuses.include?(status) }.each{|status|
@@ -94,14 +97,13 @@ class Measure < ApplicationRecord
   def self.canceled_measure_status_by_country
     @active_statuses = ["Canceled"]
     @status_totals_per_country = []
+
     Country.all.each{|country|
       @count = 0
       Measure.where(country_id: country.id).pluck(:measure_status).select{|status| @active_statuses.include?(status) }.each{|status|
         @count += 1
       }
-
       @status_totals_per_country << [country.country, @count, Measure.where(country_id: country.id).count]
-
     }
 
     @status_totals_per_country
@@ -123,7 +125,55 @@ class Measure < ApplicationRecord
       hsh[jurisdiction] = Measure.where(jurisdiction: jurisdiction).count
     }
 
-    return hsh.sort_by{|k,v| v }.reverse
+    hsh.sort_by{|k,v| v }.reverse
+  end
+
+  def self.unique_jurisdictions_by_country
+    @payload = []
+
+    Country.all.each{|country|
+      @country_measures = Measure.where(country_id: country.id)
+      @uniq_jurisdictions = @country_measures.pluck(:jurisdiction).uniq.reject{|j| j == ".." or j == nil }
+      @payload << [country.country, @uniq_jurisdictions.count, @uniq_jurisdictions]
+    }
+
+    @payload
+  end
+
+  ##
+  ## ## MEASURE AGENCY
+  ##
+
+  def self.avg_agencies_per_country
+    @payload = []
+
+    Country.all.each{|country|
+      @country_measures = Measure.where(country_id: country.id)
+      @country_agencies = @country_measures.pluck(:agency).reject{|agency|  agency == nil}
+      if @country_agencies.count == 0
+        @payload << [country.country, 0]
+      else 
+        @country_agencies_avg = @country_agencies.map{|agency| agency.split(",").count }.inject{|count,sum| count + sum } / @country_measures.count
+        @payload << [country.country, @country_agencies_avg]
+      end
+    }
+
+    @payload
+  end
+
+  ##
+  ## ## MEASURE REPORTED FINANCIAL COST
+  ##
+
+  def self.measures_with_reported_financial_cost_per_country
+    @payload = []
+    Country.all.each{|country|
+      @country_total = Measure.where(country_id: country.id)
+      @count = @country_total.reject{|measure| measure.measure_financing_quantity == nil or measure.measure_financing_quantity == 0 }.count
+      @payload << [country.country, @count, @country_total.count]
+    }
+
+    @payload
   end
 
 
@@ -131,16 +181,26 @@ class Measure < ApplicationRecord
   ## ## MEASURE TARGETS
   ##
   def self.target_frequencies
-    #@targets = MeasureTarget.all.pluck(:target).uniq
-
     hsh = Hash.new(0)
 
     MeasureTarget.all.each{|target|
       hsh[target.target] = Measure.where('measure_targets && ARRAY[?]::varchar[]', target.id).count
     }
 
-    return hsh.sort_by{|k,v| v }.reverse
+    hsh.sort_by{|k,v| v }.reverse
   end
 
+  ##
+  ## ## MEASURE GHGS AFFECTED
+  ##
+  def self.total_unique_ghs_in_dataset
+    @payload = []
+
+    Measure.all.pluck(:ghgs_affected).reject{|ghg| ghg == nil }.map{|ghg| ghg.split(",") }.flatten.map{|ghg| ghg.strip }.uniq.each{|ghg|
+      @payload << [ghg, Measure.where("ghgs_affected LIKE ?", "#{ghg}").count]
+    }
+
+    @payload
+  end
 
 end

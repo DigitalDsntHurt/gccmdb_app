@@ -362,4 +362,104 @@
 		</table>
 	</div>
 
+	<div class="summary-block">
+		<h2>Measures with reported financial cost by country</h2>
+		<h5></h5>
+		<table>
+			<% Measure.measures_with_reported_financial_cost_per_country.sort_by{|country,count,total| count }.reverse.in_groups_of(5).each{|group| %>
+				<tr>
+					<% group.each{|country,count,total| %>
+						<td>
+							<% unless country == nil %>
+								<h6><%= country %></h6>
+								<p class="centered-paragraph">
+									<%= count %> measures with reported financial cost of
+									<% if total == 1 %>
+										<br><%= total %> total measure
+									<% else %>
+										<br><%= total %> total measures
+									<% end %>
+								</p>
+							<% end %>	
+						</td>
+					<% } %>
+				</tr>
+			<% } %>
+		</table>
+	</div>	
+
+	<div class="summary-block">
+		<h2>Jursidictions reported across all measures by country</h2>
+		<h5></h5>
+		<table>
+			<% Measure.unique_jurisdictions_by_country.sort_by{|country,count,jurisdictions| count }.reverse.in_groups_of(5).each{|group| %>
+				<tr>
+					<% group.each{|country,count,jurisdictions| %>
+						<td>
+							<% unless country == nil %>
+								<h6><%= country %></h6>
+								<p class="centered-paragraph">
+									<% if count == 1 %>
+										<%= count %> jurisdiction reported
+									<% else %>
+										<%= count %> jurisdictions reported
+									<% end %>
+								</p>
+								<% unless jurisdictions == nil %>
+									<% jurisdictions.sort.each{|j| %>
+										<p><%= j %></p>
+									<% } %>
+								<% end %>	
+							<% end %>	
+						</td>
+					<% } %>
+				</tr>
+			<% } %>
+		</table>
+	</div>
+
+	<div class="summary-block">
+		<h2>Avgerage number of agencies reported by country</h2>
+		<h5></h5>
+		<table>
+			<% Measure.avg_agencies_per_country.sort_by{|country,avg| avg }.reverse.in_groups_of(5).each{|group| %>
+				<tr>
+					<% group.each{|country,avg| %>
+						<td>
+							<% unless country == nil %>
+								<h6><%= country %></h6>
+								<p class="centered-paragraph">
+									<% if avg == 1 %>
+										<%= avg %> average agency reported per measure
+									<% else %>
+										<%= avg %> average agencies reported per measure
+									<% end %>
+								</p>
+							<% end %>	
+						</td>
+					<% } %>
+				</tr>
+			<% } %>
+		</table>
+	</div>
+
+	<div class="summary-block">
+		<h2>Total unique greenhouse gasses referenced in data set</h2>
+		<h5></h5>
+		<table class="narrow">
+			<% Measure.total_unique_ghs_in_dataset.sort_by{|ghg,count| count }.reverse.each{|ghg,count| %>
+				<tr>
+					<td>
+						<h6><%= ghg %></h6>
+					</td>
+					<td>
+						<p class="centered-paragraph">
+							referenced in <strong><%= count %></strong> measures
+						</p>
+					</td>
+				</tr>
+			<% } %>
+		</table>
+	</div>				
+
 </div>
