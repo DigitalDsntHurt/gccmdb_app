@@ -2,8 +2,19 @@ Rails.application.routes.draw do
   
 
 
+  get 'summaries/index'
+  get 'summaries/summary'
+  get 'summaries/scratch'
+
+
+
+
   get 'about/home'
   get 'about/docs'
+
+
+
+
   get 'measures/index_master' => 'measures#index_master'
   get 'measures/index_pages' => 'measures#index_pages'
   get 'measures/index_simple_pages' => 'measures#index_simple_pages'

@@ -1,0 +1,16 @@
+<h1 class="page-title">Measure Target Frequency (within measures)</h1>
+
+<table class="summary-table">
+	
+		<% Measure.target_frequencies.each{|k,v| %>
+			<tr>
+				<td>
+					<%= link_to k.target, k %>
+				</td>
+				<td>
+					<%= v %>
+				</td>
+			</tr>
+		<% } %>
+	
+</table>

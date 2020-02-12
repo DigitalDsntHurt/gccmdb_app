@@ -18,12 +18,79 @@ class Measure < ApplicationRecord
   ##
 
   def self.measures_written_per_year_count
-    Measure.all.group_by{|measure| measure.measure_written_year }.reject{|array| array == nil }.map{|year,measures| [year,measures.count] }.sort_by{|array| array[0] }
+    Measure.all.group_by{|measure| measure.measure_written_year }.reject{|array| array == nil }.map{|year,measures| [year,measures.count] }.sort_by{|year,measures| measures }
   end
 
-  # <%= column_chart Measure.measures_written_per_year_count %>
-  # <%= column_chart Measure.measures_written_per_year_count.map{|year,count| {year: year, measures_written: count}} %>
-  # <%= new Chartkick.column_chart [["Football", 10], ["Basketball", 5]] %>
+
+  ##
+  ## ## MEASURES BY COUNTRY
+  ##
+
+  def self.measures_by_country
+    @payload = []
+    Country.all.each{ |country|
+      @payload << [country, Measure.where(country_id: country.id).count]
+    }
+
+    @payload.sort_by{|country,count| count }.reverse
+  end
+
+  def self.measure_written_year_range_by_country
+    @payload = []
+    Country.all.each{|country|
+      @measure_written_years = Measure.where(country_id: country.id).pluck(:measure_written_year).reject{|year| year == nil }.sort
+
+        @first = @measure_written_years.first
+        @last = @measure_written_years.last
+        @payload << [country.country, @first, @last]
+
+    }
+
+    @payload
+  end
+
+  def self.measure_implementation_start_year_range_by_country
+    @payload = []
+    Country.all.each{|country|
+      @measure_years = Measure.where(country_id: country.id).pluck(:measure_implementation_period_start_year).reject{|year| year == nil }.sort
+
+        @first = @measure_years.first
+        @last = @measure_years.last
+        @payload << [country.country, @first, @last]
+
+    }
+
+    @payload
+  end
+
+  def self.measure_implementation_end_year_range_by_country
+    @payload = []
+    Country.all.each{|country|
+      @measure_years = Measure.where(country_id: country.id).pluck(:measure_implementation_period_end_year).reject{|year| year == nil }.sort
+
+        @first = @measure_years.first
+        @last = @measure_years.last
+        @payload << [country.country, @first, @last]
+
+    }
+
+    @payload
+  end
+
+
+  ##
+  ## ## MEASURE IMPLEMENTATION YEAR FREQUENCY
+  ##
+
+  def self.measure_implementation_start_year_frequency
+    Measure.all.group_by{|measure| measure.measure_implementation_period_start_year }.reject{|hsh| hsh == nil }.to_a.map{|k,v| [k,v.count] }.sort_by{|arr| arr[0] }
+  end
+
+  def self.measure_implementation_end_year_frequency
+    Measure.all.group_by{|measure| measure.measure_implementation_period_end_year }.reject{|hsh| hsh == nil }.to_a.map{|k,v| [k,v.count] }.sort_by{|arr| arr[0] }
+  end
+
+
 
   ##
   ## ## MEASURE STATUSES
@@ -53,7 +120,7 @@ class Measure < ApplicationRecord
         @hsh[status] += 1
       }
 
-      @status_totals_per_country << [country.country, @hsh]
+      @status_totals_per_country << [country.country, @hsh.sort_by{|k,v| -v }]
 
     }
 
@@ -184,7 +251,7 @@ class Measure < ApplicationRecord
     hsh = Hash.new(0)
 
     MeasureTarget.all.each{|target|
-      hsh[target.target] = Measure.where('measure_targets && ARRAY[?]::varchar[]', target.id).count
+      hsh[target] = Measure.where('measure_targets && ARRAY[?]::varchar[]', target.id).count
     }
 
     hsh.sort_by{|k,v| v }.reverse

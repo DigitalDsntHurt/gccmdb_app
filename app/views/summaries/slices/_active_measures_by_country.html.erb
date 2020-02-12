@@ -1,0 +1,19 @@
+<h1 class="page-title">'Active' Measures by country</h1>
+
+<table class="summary-table">
+	
+		<% Measure.active_measure_status_by_country.in_groups_of(5).each{|country_group| %>
+			<tr>
+				<% country_group.each{|country,active,total| %>
+					<td>
+						<span class="country-title"><%= country %></span>
+						<p class="country-cell-list">
+							<%= active %> active of<br>
+							<%= total %> total measures
+						</p>
+					</td>
+				<% } %>
+			</tr>
+		<% } %>
+	
+</table>

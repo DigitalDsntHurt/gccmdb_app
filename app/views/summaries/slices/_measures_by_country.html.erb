@@ -1,0 +1,15 @@
+<h1 class="page-title">Measures By Country</h1>
+
+<table class="summary-table">
+	<% Measure.measures_by_country.each{|country,count| %>
+		<tr>
+			<td>
+				<%= link_to country.country, country %>
+			</td>
+			<td>
+				<%= count %>
+			</td>
+		</tr>	
+	<% } %>
+	
+</table>

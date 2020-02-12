@@ -1,0 +1,21 @@
+<h1 class="page-title">Jursidictions Reported Across All Measures By Country</h1>
+
+<table class="summary-table">
+	
+		<% Measure.unique_jurisdictions_by_country.in_groups_of(5).each{|country_group| %>
+			<tr>
+				<% country_group.each{|country,count,list| %>
+					<td>
+						<% unless list == nil %>
+							<span class="country-title"><%= country %></span>
+							<p class="country-cell-list"><i><%= count %> jurisdictions reported</i></p>
+							<% list.each{|j| %>
+								<p class="country-cell-list-left"><%= j %></p>
+							<% } %>
+						<% end -%>
+					</td>
+				<% } %>
+			</tr>
+		<% } %>
+	
+</table>

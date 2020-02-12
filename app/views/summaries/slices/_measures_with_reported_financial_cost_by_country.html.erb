@@ -1,0 +1,19 @@
+<h1 class="page-title">Measures with reported financial cost by country</h1>
+
+<table class="summary-table">
+	
+		<% Measure.measures_with_reported_financial_cost_per_country.in_groups_of(5).each{|country_group| %>
+			<tr>
+				<% country_group.each{|country,count,total| %>
+					<td>
+						<span class="country-title"><%= country %></span>
+						<p class="country-cell-list">
+							<%= count %> measures with reported financial cost of<br>
+							<%= total %> total measures
+						</p>
+					</td>
+				<% } %>
+			</tr>
+		<% } %>
+	
+</table>

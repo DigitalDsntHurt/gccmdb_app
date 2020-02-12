@@ -1,0 +1,16 @@
+<h1 class="page-title">Measure Status Frequency (within measures)</h1>
+
+<table class="summary-table">
+	
+		<% Measure.status_frequencies.each{|k,v| %>
+			<tr>
+				<td>
+					<%= k %>
+				</td>
+				<td>
+					<%= v %>
+				</td>
+			</tr>
+		<% } %>
+	
+</table>

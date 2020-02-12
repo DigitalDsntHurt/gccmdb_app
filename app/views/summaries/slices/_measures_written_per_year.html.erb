@@ -1,0 +1,14 @@
+<h1 class="page-title">Measures Written Per Year</h1>
+
+<table class="summary-table">
+	<% Measure.measures_written_per_year_count.in_groups_of(10).each{|year_group| %>
+		<tr>
+			<% year_group.each{|year,count| %>
+				<td>
+					<span class="year-title"><%= year %></span>
+					<p class="year-count"><%= count %></p>
+				</td>
+			<% } %>
+		</tr>
+	<% } %>
+</table>
