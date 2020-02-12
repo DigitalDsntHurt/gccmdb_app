@@ -32,6 +32,7 @@ Rails.application.routes.draw do
   get 'scratch/homepage'
   get 'scratch/one'
   get 'scratch/summaries'
+  get 'scratch/summaries_old'
 
 
 

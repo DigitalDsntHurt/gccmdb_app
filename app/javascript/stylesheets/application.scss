@@ -1,8 +1,10 @@
 @import "~bootstrap/scss/bootstrap";
 
-.body-container{
-	margin-top: 22px;
-	padding: 22px;
+body {
+	padding-top: 6vh;
+	padding-right: 1vw;
+	padding-left: 1vw;
+	padding-bottom: 6vh;
 }
 
 .index-container{
@@ -154,19 +156,27 @@ a.no-hover:hover {
 	/*align-content: left;*/
 	/*align-content: left;*/
 	width: 100%;
-	margin-left: -150px;
+	/*margin-left: -150px;*/
 }
 
 
 
 /* DATA SUMMARY STYLES */
+.bookmark-anchor{
+	height:8vh;
+	display: block;
+}
+
+.bookmark-link{
+	display: block;
+}
 
 .summary-blocks-wrapper {
 	
 }
 
 .summary-block {
-	margin-top: 44px;
+	/*margin-top: 44px;*/
 }
 
 .summary-block h1 {
@@ -204,8 +214,36 @@ a.no-hover:hover {
 
 
 
+/* SIDEBAR PAGE STYLES */
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2vh;
+}
 
+.main,
+.sidebar {
+  padding: 8px;
+}
 
+.main {
+  width: 80%;
+  height: 150vh;
+}
+
+.sidebar {
+  width: 20%;
+  height: 25vh;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 8vh;
+
+  border: 1px dotted black;
+}
+
+.sidebar h4{
+	text-align: left;
+}
 
 
 
