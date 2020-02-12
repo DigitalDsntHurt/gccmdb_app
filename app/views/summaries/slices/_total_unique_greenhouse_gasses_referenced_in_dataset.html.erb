@@ -1,0 +1,16 @@
+<h1 class="page-title">Total Unique Greenhouse Gasses Referenced In Data Set</h1>
+
+<table class="summary-table">
+	
+		<% Measure.total_unique_ghs_in_dataset.each{|ghg,count| %>
+			<tr>
+				<td>
+					<%= ghg %>
+				</td>
+				<td>
+					referenced in <%= count %> measures
+				</td>
+			</tr>
+		<% } %>
+	
+</table>

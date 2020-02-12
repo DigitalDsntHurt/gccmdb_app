@@ -1,0 +1,20 @@
+<h1 class="page-title">Measure Status Frequencies By Country</h1>
+
+<table class="summary-table">
+	
+		<% Measure.all_measure_statuses_by_country.in_groups_of(5).each{|country_group| %>
+			<tr>
+				<% country_group.each{|country,hsh| %>
+					<td>
+						<span class="country-title"><%= country %></span>
+						<% unless hsh == nil %>
+							<% hsh.each{|k,v| %>
+								<p class="country-cell-list"><%= v %> <u><%= k %></u> measures</p>
+							<% } %>
+						<% end -%>
+					</td>
+				<% } %>
+			</tr>
+		<% } %>
+	
+</table>

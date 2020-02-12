@@ -1,0 +1,18 @@
+<h1 class="page-title">Avgerage Number Of Agencies Reported By Country</h1>
+
+<table class="summary-table">
+	
+		<% Measure.avg_agencies_per_country.in_groups_of(5).each{|country_group| %>
+			<tr>
+				<% country_group.each{|country,avg| %>
+					<td>
+						<% unless avg == nil %>
+							<span class="country-title"><%= country %></span>
+							<p class="country-cell-list"><%= avg %> average agencies reported per measure</p>
+						<% end -%>
+					</td>
+				<% } %>
+			</tr>
+		<% } %>
+	
+</table>

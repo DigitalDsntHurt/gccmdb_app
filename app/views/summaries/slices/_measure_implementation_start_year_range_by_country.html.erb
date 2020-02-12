@@ -1,0 +1,16 @@
+<h1 class="page-title">Measure Implementation Start Year Range By Country</h1>
+
+<table class="summary-table">
+	
+		<% Measure.measure_implementation_start_year_range_by_country.in_groups_of(10).each{|country_group| %>
+			<tr>
+				<% country_group.each{|country,first,last| %>
+					<td>
+						<span class="country-title"><%= country %></span>
+						<p class="year-range"><%= first %> - <%= last %></p>
+					</td>
+				<% } %>
+			</tr>
+		<% } %>
+	
+</table>

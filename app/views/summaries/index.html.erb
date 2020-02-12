@@ -1,0 +1,37 @@
+<h1 class="page-title">Data Summaries Index</h1>
+
+
+
+<ul class="index-list">
+	<% AppData.summaries.each{|partial| %>
+		<% @partial_display_name = partial.gsub("_"," ").gsub(".html.erb","").split.map{|word| word.capitalize }.join(" ") %>
+		<% @partial_param_text = partial[1..-1] %>
+
+		<li><%= link_to @partial_display_name, summaries_summary_path(partial: @partial_param_text) %></li>
+	<% } %>
+</ul>
+
+
+<hr>
+
+<ul class="index-list">
+	<li><%= link_to "Total Number of Records", summaries_summary_path %></li>
+	<li>Measures By Country</li>
+	<li>Measures Written Per Year</li>
+	<li>Measure Implementation Start Year Frequency</li>
+	<li>Measure Implementation End Year Frequency</li>
+	<li>Measure Written Year Range By Country</li>
+	<li>Measure Implementation Start Year Range By Country</li>
+	<li>Measure Implementation End Year Range By Country</li>
+	<li>Measure Status Frequency (within Measures)</li>
+	<li>Measure Targets Frequency (within Measures)</li>
+	<li>Measure Jurisdiction Frequency (within Measures)</li>
+	<li>Measure status frequencies by country</li>
+	<li>'Active' Measures by country</li>
+	<li>'Completed' Measures by country</li>
+	<li>'Canceled' Measures by country</li>
+	<li>Measures with reported financial cost by country</li>
+	<li>Jursidictions reported across all measures by country</li>
+	<li>Avgerage number of agencies reported by country</li>
+	<li>Total unique greenhouse gasses referenced in data set</li>
+</ul>

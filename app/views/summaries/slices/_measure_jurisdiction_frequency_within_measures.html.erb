@@ -1,0 +1,16 @@
+<h1 class="page-title">Measure Jurisdiction Frequency (within Measures)</h1>
+
+<table class="summary-table">
+	
+		<% Measure.jurisdiction_frequencies.each{|k,v| %>
+			<tr>
+				<td>
+					<%= k %>
+				</td>
+				<td>
+					<%= v %>
+				</td>
+			</tr>
+		<% } %>
+	
+</table>

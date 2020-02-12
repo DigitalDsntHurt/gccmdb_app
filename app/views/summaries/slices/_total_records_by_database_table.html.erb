@@ -1,0 +1,14 @@
+<h1 class="page-title">Total Number of Records</h1>
+
+<table class="summary-table">
+	<% AppData.count_records_in_all_models.each{|model,count| %>
+		<tr>
+			<td>
+				<%= link_to model, "/#{model.underscore.humanize.downcase.gsub(" ","_")}" %>
+			</td>
+			<td>
+				<%= count %> records
+			</td>
+		</tr>
+	<% } %>
+</table>
