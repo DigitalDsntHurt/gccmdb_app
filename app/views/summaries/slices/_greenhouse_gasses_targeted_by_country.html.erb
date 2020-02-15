@@ -1,0 +1,22 @@
+<h1 class="page-title">Greenhouse Gasses Targeted By Country</h1>
+
+<table class="summary-table">
+	
+		<% Country.ghgs_targeted_by_country.in_groups_of(5).each{|country_group| %>
+			<tr>
+				<% country_group.each{|country,ghgs| %>
+					<td>
+						<% unless country == nil %>
+							<span class="country-title"><%= link_to country.country, country %></span>
+							<p class="country-cell-list">
+								<% ghgs.sort.each{|ghg| %>
+									<%= ghg %><br>
+								<% } %>
+							</p>
+						<% end %>	
+					</td>
+				<% } %>
+			</tr>
+		<% } %>
+	
+</table>

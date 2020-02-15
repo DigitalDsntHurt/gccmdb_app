@@ -70,7 +70,7 @@ body {
 
 	li{
 		list-style-type: none;
-		@extend .h5;
+		@extend .h6;
 	}
 }
 
@@ -84,7 +84,10 @@ body {
 	@extend .h6;
 }
 
+
 /* TABLE STYLES */
+
+
 .table-container{
 	max-width: 60%;
 	margin: auto;
@@ -168,6 +171,32 @@ table.measures-index{
 		text-align: center;
 	}
 }
+
+.sub-table{
+	th{
+		border: none;
+	}
+	td{
+		border: none;
+		text-align: center
+	}
+}
+
+
+
+.index-table{
+	
+	th{
+		text-align: center;
+		@extend .h2;
+		padding-bottom: 12px;
+	}
+
+	td{
+		vertical-align: top;
+	}
+}
+
 
 
 /* LINK STYLES */
