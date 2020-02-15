@@ -1,0 +1,27 @@
+<h1 class="page-title">Measures With Reported Greenhouse Gas Reduction Targets In 2020 Or 2030 By Country</h1>
+
+<table class="summary-table">
+	
+		<% Country.measures_with_ghg_reduction_targets_2020_2030_by_country.in_groups_of(5).each{|country_group| %>
+			<tr>
+				<% country_group.each{|country,twenty,thirty| %>
+					<td>
+						<% unless country == nil %>
+							<span class="country-title"><%= link_to country.country, country %></span>
+							<table class="sub-table">
+								<thead>
+									<th>2020</th>
+									<th>2030</th>
+								</thead>
+								<tr>
+									<td><%= twenty %></td>
+									<td><%= thirty %></td>
+								</tr>
+							</table>
+						<% end %>
+					</td>
+				<% } %>
+			</tr>
+		<% } %>
+	
+</table>

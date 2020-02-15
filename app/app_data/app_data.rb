@@ -14,14 +14,44 @@ class AppData
     @models.sort_by{|model,count| count }.reverse
   end
 
-  def self.summaries
+  def self.all_summaries
     @summaries = []
     Dir.foreach("app/views/summaries/slices") { |summary_partial|
       next if summary_partial[0] != "_"
       @summaries << summary_partial
     }
 
-    @summaries
+    @summaries.sort
+  end
+
+  def self.by_country_summaries
+    @summaries = []
+    Dir.foreach("app/views/summaries/slices") { |summary_partial|
+      next if summary_partial[0] != "_" or summary_partial.include?("by_country") == false
+      @summaries << summary_partial
+    }
+
+    @summaries.sort
+  end
+
+   def self.ghg_summaries
+    @summaries = []
+    Dir.foreach("app/views/summaries/slices") { |summary_partial|
+      next if summary_partial[0] != "_" or summary_partial.include?("greenhouse") == false
+      @summaries << summary_partial
+    }
+
+    @summaries.sort
+  end
+
+  def self.year_summaries
+    @summaries = []
+    Dir.foreach("app/views/summaries/slices") { |summary_partial|
+      next if summary_partial[0] != "_" or summary_partial.include?("year") == false
+      @summaries << summary_partial
+    }
+
+    @summaries.sort
   end
 
 end

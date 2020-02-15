@@ -1,0 +1,18 @@
+<h1 class="page-title">Average targeted ghg reductions in 2030 by country</h1>
+
+<table class="summary-table">
+	
+		<% Country.avg_targeted_ghg_reduction_target_in_2030_by_country.in_groups_of(5).each{|country_group| %>
+			<tr>
+				<% country_group.each{|country,avg| %>
+					<td>
+						<% unless country == nil %>
+							<span class="country-title"><%= link_to country.country, country %></span>
+							<p class="country-cell-list"><%= avg.round(2) %><br>kt CO2eq/y</p>
+						<% end %>
+					</td>
+				<% } %>
+			</tr>
+		<% } %>
+	
+</table>
