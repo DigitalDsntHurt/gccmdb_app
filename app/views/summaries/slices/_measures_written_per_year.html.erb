@@ -12,3 +12,123 @@
 		</tr>
 	<% } %>
 </table>
+
+
+
+
+<script type="text/javascript">
+	d3.select('body').append('hr').style('margin','44px 0px 44px 0px');
+	d3.select('body').append('div').attr('class','chart')
+		.append('h1')
+		.text('Measures Written Per Year').style('text-align',"center");
+
+	var data = <%= Measure.measures_written_per_year_count.map{|year,count| count } %>;
+	//var data = [1,2,3,4,5]
+	var svgWidth = 800;
+	var svgHeight = 400;
+
+	var barPadding = 5;
+	var numberOfBars = data.length;
+	var barWidth = (svgWidth - (barPadding * (numberOfBars + 1))) / numberOfBars;
+
+	var svg = d3.select('body').select('.chart')
+		.append('svg')
+			.attr('width', svgWidth)
+			.attr('height', svgHeight)
+			.attr('class','bar-chart')
+			.style('background','#E8E8E8').style('display','block').style('margin','auto');
+
+	var yScale = d3.scaleLinear()
+		.domain([0,d3.max(data)])
+		.range([0,svgHeight-2]);
+
+	var xScale = d3.scaleLinear()
+	    .domain([0, d3.max(data)])
+	    .range([0, svgWidth-2]);	
+
+	var barChart = svg.selectAll('rect')
+		.data(data)
+		.enter()
+			.append('rect')
+			.attr('y', function(d){
+				return svgHeight - yScale(d);
+			})
+			.attr('height', function(d){
+				return yScale(d);
+			})
+			.attr('x', function(d,i){
+				return ((barWidth + barPadding) * i) + barPadding;
+				
+			})
+			.attr('width', barWidth);
+			// .attr('transform', function(d,i){
+			// 	var translate = [(((barWidth + barPadding) * i) + barPadding), 0];
+			// 	return "translate(" + translate + ")";
+			// });
+
+			var y_axis = d3.axisLeft().scale(yScale);
+
+			svg.append("g")
+			    .attr("transform", "translate(30, 10)")
+			    .call(y_axis);
+
+			var x_axis = d3.axisBottom()
+    			.scale(xScale);
+
+    		var xAxisTranslate = svgHeight - 20;
+         
+			svg.append("g")
+			    .attr("transform", "translate(50, " + xAxisTranslate  +")")
+			    .call(x_axis);	
+</script>
+
+<script type="text/javascript">
+	d3.select('body').append('hr').style('margin','44px 0px 44px 0px');
+	d3.select('body').append('div').attr('class','axes')
+		.append('h1')
+		.text('Axes').style('text-align',"center");
+
+	var data = <%= Measure.measures_written_per_year_count.map{|year,count| count } %>;
+	//var data = [1,2,3,4,5]
+	var svgWidth = 800;
+	var svgHeight = 400;
+
+	var barPadding = 5;
+	var numberOfBars = data.length;
+	var barWidth = (svgWidth - (barPadding * (numberOfBars + 1))) / numberOfBars;
+
+	var svg = d3.select('body').select('.axes')
+		.append('svg')
+			.attr('width', svgWidth)
+			.attr('height', svgHeight)
+			.attr('class','bar-chart')
+			.style('display','block').style('margin','auto');
+
+	var yScale = d3.scaleLinear()
+		.domain([d3.max(data),0])
+		.range([0,svgHeight-2]);
+
+	var xScale = d3.scaleLinear()
+	    .domain([0, d3.max(data)])
+	    .range([0, svgWidth-2]);
+
+
+	var y_axis = d3.axisLeft().scale(yScale);
+
+	svg.append("g")
+	    .attr("transform", "translate(30, 10)")
+	    .call(y_axis);
+
+	var x_axis = d3.axisBottom()
+    	.scale(xScale);
+
+    var xAxisTranslate = svgHeight - 20;
+         
+	svg.append("g")
+		.attr("transform", "translate(50, " + xAxisTranslate  +")")
+		.call(x_axis);
+
+
+
+
+</script>
